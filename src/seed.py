@@ -5,7 +5,7 @@ from src.models import Contact, Phone
 import random
 from faker import Factory
 from src.db import session
-from models import Contact, Phone
+from models import Contact, Phone, Email
 from time import time
 
 class ExceptError:
@@ -176,8 +176,11 @@ def create_contacts(count):
             contacts_id=cont_id)
         session.add(phones)
         session.commit()
-        session.add(contact)
-    session.commit()
+        emails = Email(
+            email=fake.email(),
+            contacts_id=cont_id)
+        session.add(emails)
+        session.commit()
     print(f' {count} contacts added in {round(time() - timer, 3)} sec')
 
 if __name__ == '__main__':
